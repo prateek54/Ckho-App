@@ -7,15 +7,18 @@
     android:orientation="vertical"
     tools:context="com.example.android.ckho.MainActivity">
 
-    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/profile_section">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/profile_section"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="70dp">
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -41,12 +44,14 @@
                 android:textSize="18dp"
                 android:layout_marginTop="5dp"
                 android:textStyle="bold"
+                android:textColor="#282828"
                 android:layout_gravity="center"
                 tools:text="Display Name"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/profile_id"
+                android:textColor="#3d3c3c"
                 android:layout_gravity="center"
                 tools:text="Email ID"/>
             <Button
@@ -60,6 +65,16 @@
 
     </LinearLayout>
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/list">
+        </ListView>
+
+    </LinearLayout>
+    
+
+
     <com.google.android.gms.common.SignInButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,4 +84,8 @@
         android:id="@+id/login_button">
 
     </com.google.android.gms.common.SignInButton>
+    
+    
+
+
 </LinearLayout>
