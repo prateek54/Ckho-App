@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +24,8 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener{
 
@@ -62,6 +65,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         googleApiClient = new GoogleApiClient.Builder(this).
                 enableAutoManage(this,this).
                 addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build();
+
+        //Creating dummy data list of events
+        ArrayList<Event> upcomingEvent = new ArrayList<Event>();
+        ArrayList<Event> pastEvent = new ArrayList<Event>();
+
+        upcomingEvent.add(new Event("Title3","date3,time","location3"));
+        upcomingEvent.add(new Event("Title4","date4,time","location4"));
+
+        pastEvent.add(new Event("Title1","date1,time","location1"));
+        pastEvent.add(new Event("Title2","date2,time","location2"));
+
+        EventAdapter pastEventAdapter = new EventAdapter(this,pastEvent);
+        EventAdapter upcomingEventAdapter = new EventAdapter(this,upcomingEvent);
+
+        ListView upcomingListView = (ListView)findViewById(R.id.upcoming_list);
+        ListView pastListView = (ListView)findViewById(R.id.past_list);
+
+        upcomingListView.setAdapter(upcomingEventAdapter);
+        pastListView.setAdapter(pastEventAdapter);
+
+
     }
 
     @Override

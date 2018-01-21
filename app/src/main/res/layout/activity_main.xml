@@ -64,11 +64,33 @@
         </LinearLayout>
 
     </LinearLayout>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upcoming Events"
+            android:textColor="#000000"
+            android:textStyle="italic"
+            android:textSize="16dp"
+            android:paddingLeft="15dp"/>
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/list">
+            android:layout_height="wrap_content"
+            android:id="@+id/upcoming_list"
+            android:paddingLeft="15dp">
+        </ListView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Past Events"
+            android:textColor="#000000"
+            android:textStyle="italic"
+            android:textSize="16dp"
+            android:paddingLeft="15dp"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/past_list"
+            android:paddingLeft="15dp">
         </ListView>
 
     </LinearLayout>
