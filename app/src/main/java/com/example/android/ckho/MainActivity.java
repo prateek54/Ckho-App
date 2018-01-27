@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,21 +71,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ArrayList<Event> upcomingEvent = new ArrayList<Event>();
         ArrayList<Event> pastEvent = new ArrayList<Event>();
 
-        upcomingEvent.add(new Event("Title3","date3,time","location3"));
-        upcomingEvent.add(new Event("Title4","date4,time","location4"));
+        upcomingEvent.add(new Event("Intro to C++","30:01:18,10:00 AM","91Springboard"));
+        upcomingEvent.add(new Event("Continue with C++","05:02:18,12:00 AM","91Springboard"));
 
-        pastEvent.add(new Event("Title1","date1,time","location1"));
-        pastEvent.add(new Event("Title2","date2,time","location2"));
+        pastEvent.add(new Event("What is Programming","30:12:17,10:00 AM","91Springboard"));
+        pastEvent.add(new Event("How WhatsApp works","23:12:17,12:00 AM","91Springboard"));
+        pastEvent.add(new Event("What is Bitcoin","03:12:17,11:00 AM","Innov8"));
+        pastEvent.add(new Event("What is Opensource?","29:11:17,10:00 AM","Unboxed"));
 
-        EventAdapter pastEventAdapter = new EventAdapter(this,pastEvent);
-        EventAdapter upcomingEventAdapter = new EventAdapter(this,upcomingEvent);
+        final EventAdapter pastEventAdapter = new EventAdapter(this,pastEvent);
+        final EventAdapter upcomingEventAdapter = new EventAdapter(this,upcomingEvent);
 
         ListView upcomingListView = (ListView)findViewById(R.id.upcoming_list);
         ListView pastListView = (ListView)findViewById(R.id.past_list);
 
         upcomingListView.setAdapter(upcomingEventAdapter);
         pastListView.setAdapter(pastEventAdapter);
-
 
     }
 
