@@ -88,6 +88,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         upcomingListView.setAdapter(upcomingEventAdapter);
         pastListView.setAdapter(pastEventAdapter);
 
+        upcomingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Event currentEvent = upcomingEventAdapter.getItem(position);
+
+                Intent intent = new Intent(MainActivity.this,Register.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

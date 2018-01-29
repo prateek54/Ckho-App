@@ -33,6 +33,13 @@
         android:id="@+id/location"
         android:textColor="#969494"
         tools:text="Location"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Description"
+        android:paddingLeft="10dp"
+        android:textSize="18dp"
+        android:id="@+id/description"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,9 +1,15 @@
 package com.example.android.ckho;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class Register extends AppCompatActivity {
+
+    private TextView eventName,dateTime,location,description;
+    private Button registerBtn;
 
 
 
@@ -11,5 +17,12 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        eventName=(TextView)findViewById(R.id.event_name);
+        dateTime=(TextView)findViewById(R.id.date_time);
+        location=(TextView)findViewById(R.id.location);
+        description=(TextView)findViewById(R.id.description);
+
+
     }
 }
