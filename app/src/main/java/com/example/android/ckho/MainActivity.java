@@ -93,8 +93,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Event currentEvent = upcomingEventAdapter.getItem(position);
+                String eventName = currentEvent.getEventName();
+                String date = currentEvent.getDateTime();
+                String location = currentEvent.getLocation();
 
                 Intent intent = new Intent(MainActivity.this,Register.class);
+                intent.putExtra("eventName",eventName);
+                intent.putExtra("date",date);
+                intent.putExtra("location",location);
                 startActivity(intent);
             }
         });
