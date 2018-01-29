@@ -40,11 +40,12 @@
         android:paddingLeft="10dp"
         android:textSize="18dp"
         android:id="@+id/description"/>
-    <Button
+    <in.shadowfax.proswipebutton.ProSwipeButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        app:btn_text="Register"
         android:padding="20dp"
+        app:bg_color="@android:color/holo_blue_dark"
         android:id="@+id/register_button"
         android:layout_marginTop="10dp"/>
 
