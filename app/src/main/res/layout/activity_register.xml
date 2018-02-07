@@ -46,6 +46,7 @@
         app:btn_text="Register"
         android:padding="20dp"
         app:bg_color="@android:color/holo_blue_dark"
+        app:text_size="18dp"
         android:id="@+id/register_button"
         android:layout_marginTop="10dp"/>
 
