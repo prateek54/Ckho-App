@@ -32,6 +32,7 @@
         android:textSize="20dp"
         android:id="@+id/location"
         android:textColor="#969494"
+        android:textStyle="italic"
         tools:text="Location"/>
     <TextView
         android:layout_width="match_parent"
