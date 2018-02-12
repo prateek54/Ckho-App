@@ -16,6 +16,7 @@ public class Register extends AppCompatActivity {
 
     private TextView eventName,dateTime,location,description;
     private ProSwipeButton registerBtn;
+    private boolean list;
 
 
 
@@ -36,10 +37,12 @@ public class Register extends AppCompatActivity {
         description = (TextView) findViewById(R.id.description);
         registerBtn = (ProSwipeButton) findViewById(R.id.register_button);
 
+
         eventName.setText(intent.getStringExtra("eventName"));
         dateTime.setText(intent.getStringExtra("date"));
         location.setText(intent.getStringExtra("location"));
         description.setText("Random Decription from server");
+
 
 
         /**registerBtn.setOnClickListener(new View.OnClickListener() {

@@ -31,10 +31,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener{
 
     // Declaring Variables
-    private LinearLayout profileSection;
     private Button logOut;
-    private SignInButton logIn;
     private TextView Name,EmailId;
+    private String url;
     private ImageView profilePicture;
     private GoogleApiClient googleApiClient;
     private static final int REQ_CODE = 9001;
@@ -44,28 +43,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        Intent mainintent = getIntent();
+
+
         //Initialising Variables
-        profileSection = (LinearLayout)findViewById(R.id.profile_section);
         logOut = (Button)findViewById(R.id.logout_button);
-        logIn = (SignInButton)findViewById(R.id.login_button);
         Name = (TextView)findViewById(R.id.profile_name);
         EmailId = (TextView)findViewById(R.id.profile_id);
         profilePicture = (ImageView)findViewById(R.id.profile_pic);
 
-        //Set on click listener to login and logout buttons
-        logIn.setOnClickListener(this);
+        //Set on click listener to logout button
         logOut.setOnClickListener(this);
 
-        //hide the user profile section by default
-        profileSection.setVisibility(View.GONE);
 
-        //default google sign in option
-        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
-                requestEmail().build();
+        Name.setText(mainintent.getStringExtra("name"));
+        EmailId.setText(mainintent.getStringExtra("emailId"));
+        url = mainintent.getStringExtra("imgUrl");
+        Glide.with(this).load(url).into(profilePicture);
 
-        googleApiClient = new GoogleApiClient.Builder(this).
-                enableAutoManage(this,this).
-                addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build();
+
 
         //Creating dummy data list of events
         ArrayList<Event> upcomingEvent = new ArrayList<Event>();
@@ -96,11 +93,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String eventName = currentEvent.getEventName();
                 String date = currentEvent.getDateTime();
                 String location = currentEvent.getLocation();
+                String list = "upcoming";
 
                 Intent intent = new Intent(MainActivity.this,Register.class);
                 intent.putExtra("eventName",eventName);
                 intent.putExtra("date",date);
                 intent.putExtra("location",location);
+                intent.putExtra("list",list);
                 startActivity(intent);
             }
         });
@@ -108,18 +107,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        //check which button is clicked
-        switch (v.getId())
-        {
-            //case of login button
-            case R.id.login_button:
-                LogIn();
-                break;
-            //case of logout button
-            case R.id.logout_button:
-                LogOut();
-                break;
-        }
+
+        LogOut();
+
     }
 
     @Override
@@ -127,65 +117,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
-    private void LogIn()
-    {
-        Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-        startActivityForResult(intent,REQ_CODE);
-    }
-
     private void LogOut()
     {
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
-                updateUI(false);
+                //TODO:logoutintent
+                Intent logoutintent = new Intent(MainActivity.this,Login.class);
+                startActivity(logoutintent);
             }
         });
-    }
-
-    private void handleResult(GoogleSignInResult result)
-    {
-        if(result.isSuccess())
-        {
-            GoogleSignInAccount account = result.getSignInAccount();
-            String name = account.getDisplayName();
-            String email = account.getEmail();
-            String img_url = account.getPhotoUrl().toString();
-
-            Name.setText(name);
-            EmailId.setText(email);
-            Glide.with(this).load(img_url).into(profilePicture);
-            updateUI(true);
-        }
-        else {
-            updateUI(false);
-        }
-
-    }
-
-    private void updateUI(Boolean isLogIn)
-    {
-        if(isLogIn)
-        {
-            profileSection.setVisibility(View.VISIBLE);
-            logIn.setVisibility(View.GONE);
-        }
-        else
-        {
-            profileSection.setVisibility(View.GONE);
-            logIn.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-
-        if(requestCode==REQ_CODE)
-        {
-            GoogleSignInResult result  = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleResult(result);
-        }
     }
 }
