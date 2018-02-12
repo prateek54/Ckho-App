@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -18,6 +19,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Goo
 
     private SignInButton login;
     private GoogleApiClient googleApiClient;
+    private GoogleSignInOptions signInOptions;
     private static final int REQ_CODE=9001;
 
     @Override
@@ -28,7 +30,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Goo
         login = (SignInButton)findViewById(R.id.login_button);
         login.setOnClickListener(this);
 
-        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
+        signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
                 .build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build();
@@ -71,7 +73,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Goo
         }
         else
         {
-
+            Toast.makeText(Login.this,"LogIn Failed",Toast.LENGTH_SHORT).show();
         }
 
     }

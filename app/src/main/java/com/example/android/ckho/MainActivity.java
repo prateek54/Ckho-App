@@ -119,13 +119,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void LogOut()
     {
+
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
-                //TODO:logoutintent
-                Intent logoutintent = new Intent(MainActivity.this,Login.class);
+                Intent logoutintent = new Intent(getApplicationContext(),Login.class);
                 startActivity(logoutintent);
             }
         });
+    }
+    @Override
+    protected void onStart() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        googleApiClient.disconnect();
+        googleApiClient.connect();
+        super.onStart();
     }
 }
