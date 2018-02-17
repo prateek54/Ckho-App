@@ -41,7 +41,7 @@ public class Register extends AppCompatActivity {
         eventName.setText(intent.getStringExtra("eventName"));
         dateTime.setText(intent.getStringExtra("date"));
         location.setText(intent.getStringExtra("location"));
-        description.setText("Random Decription from server");
+        description.setText(intent.getStringExtra("description"));
 
 
 

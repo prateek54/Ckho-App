@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Goo
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions signInOptions;
     private static final int REQ_CODE=9001;
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +63,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Goo
         if(result.isSuccess())
         {
             GoogleSignInAccount account = result.getSignInAccount();
-            String name=account.getDisplayName();
-            String emailId=account.getEmail();
-            String imgUrl = account.getPhotoUrl().toString();
+            String Name=account.getDisplayName();
+            String EmailId=account.getEmail();
+            String url = account.getPhotoUrl().toString();
 
             Intent mainintent = new Intent(Login.this,MainActivity.class);
-            mainintent.putExtra(name,"name");
-            mainintent.putExtra(emailId,"emailId");
-            mainintent.putExtra(imgUrl,"imgUrl");
+            mainintent.putExtra(Name,"Name");
+            mainintent.putExtra(EmailId,"EmailId");
+            mainintent.putExtra(url,"url");
             startActivity(mainintent);
         }
         else

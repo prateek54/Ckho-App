@@ -7,11 +7,6 @@
     android:orientation="vertical"
     tools:context="com.example.android.ckho.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/profile_section">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +41,7 @@
                 android:textStyle="bold"
                 android:textColor="#282828"
                 android:layout_gravity="center"
-                tools:text="Display Name"/>
+                android:text="Display Name"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,6 +57,7 @@
                 android:id="@+id/logout_button"/>
 
         </LinearLayout>
+
 
     </LinearLayout>
 
@@ -101,9 +97,14 @@
         </ListView>
 
 
-    </LinearLayout>
-    
-    
+
+    <!-- Empty view is only visible when the list has no items. -->
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textAppearance="?android:textAppearanceMedium"/>
 
 
 </LinearLayout>
