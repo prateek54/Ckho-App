@@ -83,6 +83,7 @@ public class QueryUtils {
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
+                Log.e(LOG_TAG, "jsonResponse = " + jsonResponse);
             } else {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
@@ -129,18 +130,22 @@ public class QueryUtils {
 
         try
         {
-            JSONArray eventsArray = new JSONArray();
+            JSONObject baseJsonResponse = new JSONObject(JSON_RESPONSE);
+            JSONArray eventsArray = baseJsonResponse.getJSONArray("events");
             for(int i=0;i<eventsArray.length();i++)
             {
                 JSONObject currentEvent = eventsArray.getJSONObject(i);
+                Log.e(LOG_TAG, "value of i = " + i);
                 String eventName = currentEvent.getString("EventName");
                 String dateTime = currentEvent.getString("StartDateTime") +
                         currentEvent.getString("EndDateTime");
                 String location = currentEvent.getString("StreetAddress") +
                         currentEvent.getString("City");
                 String description = currentEvent.getString("EventDesc");
+                Log.e(LOG_TAG, "eventdetails = " + eventName+dateTime+location+description);
 
                 Event mEvent = new Event(eventName,dateTime,location,description);
+
                 events.add(mEvent);
             }
         }

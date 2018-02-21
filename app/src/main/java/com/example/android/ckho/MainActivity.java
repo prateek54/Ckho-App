@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new EventAdapter(this,new ArrayList<Event>());
         upcomingEventsListView = (ListView)findViewById(R.id.upcoming_list);
         pastEventsListView = (ListView)findViewById(R.id.past_list);
+        mEmptyStateTextView = (TextView)findViewById(R.id.empty_view);
 
         upcomingEventsListView.setAdapter(mAdapter);
         pastEventsListView.setAdapter(mAdapter);
@@ -191,10 +192,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onLoadFinished(Loader<List<Event>> loader, List<Event> event) {
-        // Set empty state text to display "No earthquakes found."
-        mEmptyStateTextView.setText("NO NEWS");
+        // Set empty state text to display "No events found."
+        mEmptyStateTextView.setText("NO EVENTS");
 
-        // Clear the adapter of previous earthquake data
+        // Clear the adapter of previous events data
         mAdapter.clear();
 
         if (event!= null && !event.isEmpty())
