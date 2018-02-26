@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Ckho.iml" filepath="$PROJECT_DIR$/Ckho.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Shenron\AndroidStudioProjects\Ckho\app\app.iml" filepath="C:\Users\Shenron\AndroidStudioProjects\Ckho\app\app.iml" />
     </modules>
   </component>
 </project>

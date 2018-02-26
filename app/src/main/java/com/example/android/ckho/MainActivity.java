@@ -53,7 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final String LOG_TAG = MainActivity.class.getName();
     private static final int EVENT_LOADER_ID = 1;
-    private static final String EVENTS_REQUEST_URL =
+    private static final String UPCOMING_EVENTS_REQUEST_URL =
+            "https://ckho-api-test-desmondanimus.c9users.io/nearpast?ecity=Delhi";
+    private static final String PAST_EVENTS_REQUEST_URL =
             "https://ckho-api-test-desmondanimus.c9users.io/nearpast?ecity=Delhi";
 
     /** TextView that
@@ -78,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new EventAdapter(this,new ArrayList<Event>());
         upcomingEventsListView = (ListView)findViewById(R.id.upcoming_list);
         pastEventsListView = (ListView)findViewById(R.id.past_list);
-        mEmptyStateTextView = (TextView)findViewById(R.id.empty_view);
 
         upcomingEventsListView.setAdapter(mAdapter);
         pastEventsListView.setAdapter(mAdapter);
@@ -137,62 +138,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mEmptyStateTextView.setText("NO INTERNET CONNECTION");
         }
 
-
-
-
-
-//
-//
-//        //Creating dummy data list of events
-//        ArrayList<Event> upcomingEvent = new ArrayList<Event>();
-//        ArrayList<Event> pastEvent = new ArrayList<Event>();
-//
-//        upcomingEvent.add(new Event("Intro to C++","30:01:18,10:00 AM","91Springboard"));
-//        upcomingEvent.add(new Event("Continue with C++","05:02:18,12:00 AM","91Springboard"));
-//
-//        pastEvent.add(new Event("What is Programming","30:12:17,10:00 AM","91Springboard"));
-//        pastEvent.add(new Event("How WhatsApp works","23:12:17,12:00 AM","91Springboard"));
-//        pastEvent.add(new Event("What is Bitcoin","03:12:17,11:00 AM","Innov8"));
-//        pastEvent.add(new Event("What is Opensource?","29:11:17,10:00 AM","Unboxed"));
-//
-//        final EventAdapter pastEventAdapter = new EventAdapter(this,pastEvent);
-//        final EventAdapter upcomingEventAdapter = new EventAdapter(this,upcomingEvent);
-//
-//        ListView upcomingListView = (ListView)findViewById(R.id.upcoming_list);
-//        ListView pastListView = (ListView)findViewById(R.id.past_list);
-//
-//        upcomingListView.setAdapter(upcomingEventAdapter);
-//        pastListView.setAdapter(pastEventAdapter);
-//
-//        upcomingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                Event currentEvent = upcomingEventAdapter.getItem(position);
-//                String eventName = currentEvent.getEventName();
-//                String date = currentEvent.getDateTime();
-//                String location = currentEvent.getLocation();
-//                String list = "upcoming";
-//
-//                Intent intent = new Intent(MainActivity.this,Register.class);
-//                intent.putExtra("eventName",eventName);
-//                intent.putExtra("date",date);
-//                intent.putExtra("location",location);
-//                intent.putExtra("list",list);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     @Override
     public Loader<List<Event>> onCreateLoader(int i,Bundle bundle)
     {
-        return new EventLoader(this,EVENTS_REQUEST_URL);
+        return new EventLoader(this,PAST_EVENTS_REQUEST_URL);
     }
 
     @Override
     public void onLoadFinished(Loader<List<Event>> loader, List<Event> event) {
-        // Set empty state text to display "No events found."
+        // Set empty state text to display "No Events found."
         mEmptyStateTextView.setText("NO EVENTS");
 
         // Clear the adapter of previous events data

@@ -44,9 +44,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
         TextView locationTextView = (TextView)listItemView.findViewById(R.id.location);
         locationTextView.setText(currentEvent.getLocation());
 
-        TextView descriptionTextView = (TextView)listItemView.findViewById(R.id.description);
-        descriptionTextView.setText(currentEvent.getDescription());
-
 
         return listItemView;
     }
