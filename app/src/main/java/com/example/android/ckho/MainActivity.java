@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /** TextView that
      *  is displayed when the
      *  list is empty */
+
     private TextView mEmptyStateTextView;
 
     @Override
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new EventAdapter(this,new ArrayList<Event>());
         upcomingEventsListView = (ListView)findViewById(R.id.upcoming_list);
         pastEventsListView = (ListView)findViewById(R.id.past_list);
+        mEmptyStateTextView = (TextView)findViewById(R.id.empty_view);
 
         upcomingEventsListView.setAdapter(mAdapter);
         pastEventsListView.setAdapter(mAdapter);

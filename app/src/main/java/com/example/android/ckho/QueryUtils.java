@@ -129,7 +129,8 @@ public class QueryUtils {
 
         try
         {
-            JSONArray eventsArray = new JSONArray();
+            JSONObject baseJsonResponse = new JSONObject(JSON_RESPONSE);
+            JSONArray eventsArray = baseJsonResponse.getJSONArray("events");
             for(int i=0;i<eventsArray.length();i++)
             {
                 JSONObject currentEvent = eventsArray.getJSONObject(i);
