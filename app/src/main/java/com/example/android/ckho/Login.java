@@ -68,9 +68,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Goo
             String url = account.getPhotoUrl().toString();
 
             Intent mainintent = new Intent(Login.this,MainActivity.class);
-            mainintent.putExtra(Name,"Name");
-            mainintent.putExtra(EmailId,"EmailId");
-            mainintent.putExtra(url,"url");
+            mainintent.putExtra("Name",Name);
+            mainintent.putExtra("EmailId",EmailId);
+            mainintent.putExtra("url",url);
             startActivity(mainintent);
         }
         else
