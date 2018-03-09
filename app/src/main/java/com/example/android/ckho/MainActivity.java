@@ -38,7 +38,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener,
-        LoaderManager.LoaderCallbacks<List<Event>>{
+        LoaderManager.LoaderCallbacks<List<List<Event>>>{
 
     // Declaring Variables
     private Button logOut;
@@ -50,13 +50,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EventAdapter mAdapter;
     private ListView upcomingEventsListView;
     private ListView pastEventsListView;
+    private EventAdapter mSecondAdapter;
 
     public static final String LOG_TAG = MainActivity.class.getName();
     private static final int EVENT_LOADER_ID = 1;
     private static final String UPCOMING_EVENTS_REQUEST_URL =
-            "https://ckho-api-test-desmondanimus.c9users.io/nearpast?ecity=Delhi";
+            "https://ckho-api-test-desmondanimus.c9users.io/upcoming";
     private static final String PAST_EVENTS_REQUEST_URL =
-            "https://ckho-api-test-desmondanimus.c9users.io/nearpast?ecity=Delhi";
+            "https://ckho-api-test-desmondanimus.c9users.io/past";
 
     /** TextView that
      *  is displayed when the
@@ -79,12 +80,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EmailId = (TextView)findViewById(R.id.profile_id);
         profilePicture = (ImageView) findViewById(R.id.profile_pic);
         mAdapter = new EventAdapter(this,new ArrayList<Event>());
+        mSecondAdapter = new EventAdapter(this,new ArrayList<Event>());
         upcomingEventsListView = (ListView)findViewById(R.id.upcoming_list);
         pastEventsListView = (ListView)findViewById(R.id.past_list);
         mEmptyStateTextView = (TextView)findViewById(R.id.empty_view);
 
+        upcomingEventsListView.setEmptyView(mEmptyStateTextView);
+
         upcomingEventsListView.setAdapter(mAdapter);
-        pastEventsListView.setAdapter(mAdapter);
+        pastEventsListView.setAdapter(mSecondAdapter);
 
 
 
@@ -143,30 +147,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public Loader<List<Event>> onCreateLoader(int i,Bundle bundle)
+    public Loader<List<List<Event>>> onCreateLoader(int i,Bundle bundle)
     {
-        return new EventLoader(this,PAST_EVENTS_REQUEST_URL);
+        return new EventLoader(this,UPCOMING_EVENTS_REQUEST_URL,PAST_EVENTS_REQUEST_URL);
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Event>> loader, List<Event> event) {
+    public void onLoadFinished(Loader<List<List<Event>>> loader, List<List<Event>> event) {
         // Set empty state text to display "No Events found."
         mEmptyStateTextView.setText("NO EVENTS");
 
         // Clear the adapter of previous events data
         mAdapter.clear();
+        mSecondAdapter.clear();
 
         if (event!= null && !event.isEmpty())
         {
-            mAdapter.addAll(event);
+            mAdapter.addAll(event.get(0));
+            mSecondAdapter.addAll(event.get(1));
         }
-
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Event>> loader) {
+    public void onLoaderReset(Loader<List<List<Event>>> loader) {
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
+        mSecondAdapter.clear();
 
     }
 
