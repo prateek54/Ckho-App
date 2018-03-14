@@ -161,8 +161,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter.clear();
         mSecondAdapter.clear();
 
-        if (event!= null && !event.isEmpty())
+        Log.e(LOG_TAG, "events data =  " + event.get(0) + " and     " + event.get(1));
+
+        if ((event.get(0)!= null || !event.get(0).isEmpty()) || (event.get(1)!= null || !event.get(1).isEmpty()))
         {
+
             mAdapter.addAll(event.get(0));
             mSecondAdapter.addAll(event.get(1));
         }

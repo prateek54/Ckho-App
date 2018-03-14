@@ -6,20 +6,22 @@ package com.example.android.ckho;
 
 public class Event {
 
-    private String mEventName,mDateTime,mLocation,mDescription;
+    private String mEventName,mDateTime,mLocation,mDescription,eid;
 
-    public Event(String eventName,String dateTime,String location)
+    public Event(String eventName,String dateTime,String location,String eId)
     {
         mEventName=eventName;
         mDateTime=dateTime;
         mLocation=location;
+        eid = eId;
     }
-    public Event(String eventName,String dateTime,String location,String description)
+    public Event(String eventName,String dateTime,String location,String description,String eId)
     {
         mEventName=eventName;
         mDateTime=dateTime;
         mLocation=location;
         mDescription=description;
+        eid = eId;
     }
 
     public String getEventName()
@@ -37,5 +39,7 @@ public class Event {
         return mLocation;
     }
     public String getDescription(){return mDescription;}
+
+    public String getEid(){return eid;}
 
 }

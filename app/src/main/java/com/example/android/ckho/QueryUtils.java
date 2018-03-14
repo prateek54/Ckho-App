@@ -140,8 +140,9 @@ public class QueryUtils {
                 String location = currentEvent.getString("StreetAddress") +
                         currentEvent.getString("City");
                 String description = currentEvent.getString("EventDesc");
+                String eid = currentEvent.getString("EID");
 
-                Event mEvent = new Event(eventName,dateTime,location,description);
+                Event mEvent = new Event(eventName,dateTime,location,description,eid);
                 events.add(mEvent);
             }
         }
