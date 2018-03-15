@@ -10,6 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import in.shadowfax.proswipebutton.ProSwipeButton;
 
 public class Register extends AppCompatActivity {
@@ -17,7 +26,9 @@ public class Register extends AppCompatActivity {
     private TextView eventName,dateTime,location,description;
     private ProSwipeButton registerBtn;
     private boolean list;
-
+    private String registratonUrl="https://ckho-api-test-desmondanimus.c9users.io/register";
+    private String eid,uid,uname;
+    private String responseCode;
 
 
     @Override
@@ -43,6 +54,10 @@ public class Register extends AppCompatActivity {
         location.setText(intent.getStringExtra("location"));
         description.setText(intent.getStringExtra("description"));
 
+        eid = intent.getStringExtra("eid");
+        uid = intent.getStringExtra("uid");
+        uname = intent.getStringExtra("uname");
+
 
 
         /**registerBtn.setOnClickListener(new View.OnClickListener() {
@@ -57,12 +72,39 @@ public class Register extends AppCompatActivity {
             @Override
             public void onSwipeConfirm() {
                 // user has swiped the btn. Perform your async operation now
+
+                StringRequest stringRequest  = new StringRequest(Request.Method.POST, registratonUrl,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                 responseCode = response;
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                        Map<String,String> params = new HashMap<String,String>();
+                        params.put("uname",uname);
+                        params.put("uid",uid);
+                        params.put("eid",eid);
+
+                        return params;
+                    }
+                };
+                Singleton.getInstance(Register.this).addToRequestqueue(stringRequest);
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         // task success! show TICK icon in ProSwipeButton
                         onClickRegister();
-                        registerBtn.showResultIcon(true); // false if task failed
                     }
                 }, 1000);
             }
@@ -71,7 +113,15 @@ public class Register extends AppCompatActivity {
     }
     public void onClickRegister()
     {
-        Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show();
+        if(responseCode=="200") {
+            registerBtn.showResultIcon(true); // false if task failed
+            Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            registerBtn.showResultIcon(false); // false if task failed
+            Toast.makeText(this, "Error occured", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

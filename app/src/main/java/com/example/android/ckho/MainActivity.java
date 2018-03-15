@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView upcomingEventsListView;
     private ListView pastEventsListView;
     private EventAdapter mSecondAdapter;
+    private String uid,uname;
 
     public static final String LOG_TAG = MainActivity.class.getName();
     private static final int EVENT_LOADER_ID = 1;
@@ -102,6 +103,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         url = infointent.getStringExtra("url");
         Glide.with(this).load(url).into(profilePicture);
 
+        uid = infointent.getStringExtra("EmailId");
+        uname = infointent.getStringExtra("Name");
+
 
         upcomingEventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -113,12 +117,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String date = currentEvent.getDateTime();
                 String location = currentEvent.getLocation();
                 String description = currentEvent.getDescription();
+                String eid = currentEvent.getEid();
 
                 Intent intent = new Intent(MainActivity.this,Register.class);
                 intent.putExtra("eventName",eventName);
                 intent.putExtra("date",date);
                 intent.putExtra("location",location);
                 intent.putExtra("description",description);
+                intent.putExtra("uid",uid);
+                intent.putExtra("uname",uname);
+                intent.putExtra("eid",eid);
                 startActivity(intent);
 
             }
