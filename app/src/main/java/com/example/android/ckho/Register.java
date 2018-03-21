@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ public class Register extends AppCompatActivity {
     private String registratonUrl="https://ckho-api-test-desmondanimus.c9users.io/register";
     private String eid,uid,uname;
     private String responseCode;
+    private int resCode;
+    public static final String LOG_TAG = Register.class.getName();
 
 
     @Override
@@ -78,7 +81,9 @@ public class Register extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
 
-                                 responseCode = response;
+                                 responseCode = response.substring(0,2);
+                                 resCode = Integer.parseInt(responseCode);
+                                Log.e(LOG_TAG, "resCode : " + resCode);
 
                             }
                         }, new Response.ErrorListener() {
@@ -89,7 +94,6 @@ public class Register extends AppCompatActivity {
                 }){
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
-
                         Map<String,String> params = new HashMap<String,String>();
                         params.put("uname",uname);
                         params.put("uid",uid);
@@ -113,7 +117,7 @@ public class Register extends AppCompatActivity {
     }
     public void onClickRegister()
     {
-        if(responseCode=="200") {
+        if(resCode==200) {
             registerBtn.showResultIcon(true); // false if task failed
             Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show();
         }
