@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Ckho</string>
+
+    <string name="title_activity_spash_screen">SpashScreen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

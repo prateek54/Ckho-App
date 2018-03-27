@@ -9,33 +9,23 @@ import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener,
         LoaderManager.LoaderCallbacks<List<List<Event>>>{
@@ -52,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView pastEventsListView;
     private EventAdapter mSecondAdapter;
     private String uid,uname;
+    SharedPrefApp sharedPref;
+    UserDetails userDetails;
 
     public static final String LOG_TAG = MainActivity.class.getName();
     private static final int EVENT_LOADER_ID = 1;
@@ -94,15 +86,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
+
         //Set on click listener to logout button
         logOut.setOnClickListener(this);
 
 
-        Name.setText(infointent.getStringExtra("Name"));
-        EmailId.setText(infointent.getStringExtra("EmailId"));
-        url = infointent.getStringExtra("url");
-        Glide.with(this).load(url).into(profilePicture);
+        if(sharedPref.getISLogged_IN(MainActivity.this)) {
+           Name.setText(userDetails.getmName());
+           EmailId.setText(userDetails.getmEmail());
+           url = userDetails.getmUrl();
+        }
+        else
+        {
+            Name.setText(infointent.getStringExtra("Name"));
+            EmailId.setText(infointent.getStringExtra("EmailId"));
+            url = infointent.getStringExtra("url");
 
+        }
+        Glide.with(this).load(url).into(profilePicture);
         uid = infointent.getStringExtra("EmailId");
         uname = infointent.getStringExtra("Name");
 
@@ -211,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResult(@NonNull Status status) {
                 Intent logoutintent = new Intent(getApplicationContext(),Login.class);
+                sharedPref.saveISLogged_IN(MainActivity.this, false);
                 startActivity(logoutintent);
             }
         });

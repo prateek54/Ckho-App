@@ -2,11 +2,13 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FE8893"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/customshape"
         android:orientation="vertical">
 
         <TextView
@@ -15,7 +17,7 @@
             android:id="@+id/event_name"
             tools:text="Demo Event Name"
             android:textSize="18dp"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
             android:paddingLeft="10dp"
             android:textStyle="bold"
             android:paddingTop="10dp"/>
@@ -23,15 +25,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/date_time"
+            android:textColor="#F1CECA"
             tools:text="Date, Time"
             android:paddingLeft="10dp"
             android:textSize="15dp"/>
         <TextView
             android:layout_width="wrap_content"
+            android:textSize="15dp"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:id="@+id/location"
-            android:textColor="#969494"
+            android:textColor="#F1CECA"
             tools:text="Location"/>
         <TextView
             android:layout_width="wrap_content"

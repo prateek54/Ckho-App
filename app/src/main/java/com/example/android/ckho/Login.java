@@ -23,6 +23,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Goo
     private GoogleSignInOptions signInOptions;
     private static final int REQ_CODE=9001;
     private static final String TAG = "MyActivity";
+    SharedPrefApp sharedPref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Goo
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build();
 
+        sharedPref = SharedPrefApp.getInstance();
 
     }
 
@@ -62,10 +65,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Goo
     {
         if(result.isSuccess())
         {
+            sharedPref.saveISLogged_IN(this, true);
+
             GoogleSignInAccount account = result.getSignInAccount();
             String Name=account.getDisplayName();
             String EmailId=account.getEmail();
-            String url = account.getPhotoUrl().toString();
+            String url;
+
+            try {
+                url = account.getPhotoUrl().toString();
+            }
+            catch (NullPointerException e)
+            {
+                url="";
+            }
+            new UserDetails(Name,EmailId,url);
 
             Intent mainintent = new Intent(Login.this,MainActivity.class);
             mainintent.putExtra("Name",Name);
