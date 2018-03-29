@@ -4,8 +4,10 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EventAdapter mSecondAdapter;
     private String uid,uname;
     SharedPrefApp sharedPref;
-    UserDetails userDetails;
 
     public static final String LOG_TAG = MainActivity.class.getName();
     private static final int EVENT_LOADER_ID = 1;
@@ -83,27 +84,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         upcomingEventsListView.setAdapter(mAdapter);
         pastEventsListView.setAdapter(mSecondAdapter);
 
-
-
-
+        upcomingEventsListView.setBackgroundResource(R.drawable.customshape);
+        pastEventsListView.setBackgroundResource(R.drawable.customshape);
 
 
         //Set on click listener to logout button
         logOut.setOnClickListener(this);
 
+        Name.setText(infointent.getStringExtra("Name"));
+        EmailId.setText(infointent.getStringExtra("EmailId"));
+        url = infointent.getStringExtra("url");
 
-        if(sharedPref.getISLogged_IN(MainActivity.this)) {
-           Name.setText(userDetails.getmName());
-           EmailId.setText(userDetails.getmEmail());
-           url = userDetails.getmUrl();
-        }
-        else
-        {
-            Name.setText(infointent.getStringExtra("Name"));
-            EmailId.setText(infointent.getStringExtra("EmailId"));
-            url = infointent.getStringExtra("url");
 
-        }
         Glide.with(this).load(url).into(profilePicture);
         uid = infointent.getStringExtra("EmailId");
         uname = infointent.getStringExtra("Name");
@@ -213,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResult(@NonNull Status status) {
                 Intent logoutintent = new Intent(getApplicationContext(),Login.class);
-                sharedPref.saveISLogged_IN(MainActivity.this, false);
+//                sharedPref.saveISLogged_IN(MainActivity.this, false);
                 startActivity(logoutintent);
             }
         });

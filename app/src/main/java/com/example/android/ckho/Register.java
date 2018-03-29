@@ -30,7 +30,6 @@ public class Register extends AppCompatActivity {
     private String registratonUrl="https://ckho-api-test-desmondanimus.c9users.io/register";
     private String eid,uid,uname;
     private String responseCode;
-    private int resCode;
     public static final String LOG_TAG = Register.class.getName();
 
 
@@ -81,9 +80,8 @@ public class Register extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
 
-                                 responseCode = response.substring(0,2);
-                                 resCode = Integer.parseInt(responseCode);
-                                Log.e(LOG_TAG, "resCode : " + resCode);
+                                 responseCode = response.substring(0,3);
+                                Log.e(LOG_TAG, "resCode : " + responseCode);
 
                             }
                         }, new Response.ErrorListener() {
@@ -117,7 +115,7 @@ public class Register extends AppCompatActivity {
     }
     public void onClickRegister()
     {
-        if(resCode==200) {
+        if(responseCode=="200") {
             registerBtn.showResultIcon(true); // false if task failed
             Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show();
         }

@@ -22,8 +22,9 @@ public class SpashScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_spash_screen);
+
         sharedPref = SharedPrefApp.getInstance();
 
         for(int i=0;i<1000;i++)
@@ -35,7 +36,7 @@ public class SpashScreen extends AppCompatActivity {
 
         if(sharedPref.getISLogged_IN(SpashScreen.this))
         {
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this,Login.class));//change to main class after saving login info
         }
         else
         {
