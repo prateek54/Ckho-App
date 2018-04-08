@@ -20,16 +20,17 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-import in.shadowfax.proswipebutton.ProSwipeButton;
+
 
 public class Register extends AppCompatActivity {
 
     private TextView eventName,dateTime,location,description;
-    private ProSwipeButton registerBtn;
+    private Button registerBtn;
     private boolean list;
-    private String registratonUrl="https://ckho-api-test-desmondanimus.c9users.io/register";
+    private final String registratonUrl="https://ckho-api-test-desmondanimus.c9users.io/register";
     private String eid,uid,uname;
     private String responseCode;
+    private boolean success;
     public static final String LOG_TAG = Register.class.getName();
 
 
@@ -48,7 +49,7 @@ public class Register extends AppCompatActivity {
         dateTime = (TextView) findViewById(R.id.date_time);
         location = (TextView) findViewById(R.id.location);
         description = (TextView) findViewById(R.id.description);
-        registerBtn = (ProSwipeButton) findViewById(R.id.register_button);
+        registerBtn = (Button) findViewById(R.id.register_button);
 
 
         eventName.setText(intent.getStringExtra("eventName"));
@@ -62,26 +63,19 @@ public class Register extends AppCompatActivity {
 
 
 
-        /**registerBtn.setOnClickListener(new View.OnClickListener() {
 
-         public void onClick(View v) {
-         onClickRegister(v);
-         }
-         });**/
-
-
-        registerBtn.setOnSwipeListener(new ProSwipeButton.OnSwipeListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSwipeConfirm() {
-                // user has swiped the btn. Perform your async operation now
-
+            public void onClick(View v) {
                 StringRequest stringRequest  = new StringRequest(Request.Method.POST, registratonUrl,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
 
-                                 responseCode = response.substring(0,3);
-                                Log.e(LOG_TAG, "resCode : " + responseCode);
+                                responseCode = response;
+                                Log.e(LOG_TAG, "resCode :." + responseCode + ".");
+
+                                onClickRegister(responseCode);
 
                             }
                         }, new Response.ErrorListener() {
@@ -105,24 +99,22 @@ public class Register extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        // task success! show TICK icon in ProSwipeButton
-                        onClickRegister();
+
                     }
-                }, 1000);
+                }, 100);
             }
         });
 
     }
-    public void onClickRegister()
+    public void onClickRegister(String rescode)
     {
-        if(responseCode=="200") {
-            registerBtn.showResultIcon(true); // false if task failed
+        if(rescode.equals("200"))
+        {
             Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            registerBtn.showResultIcon(false); // false if task failed
-            Toast.makeText(this, "Error occured", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error occurred", Toast.LENGTH_SHORT).show();
         }
 
     }

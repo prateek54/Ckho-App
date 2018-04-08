@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Log out"
+                android:background="@drawable/customshape"
                 android:id="@+id/logout_button"/>
 
         </LinearLayout>
@@ -71,8 +72,6 @@
             android:textColor="#ffffff"
             android:textStyle="italic|bold"
             android:textSize="18dp"
-
-
             android:padding="15dp"/>
         <ListView
             android:layout_width="match_parent"
@@ -85,6 +84,14 @@
             android:layout_marginRight="25dp">
         </ListView>
 
+    <com.bhargavms.dotloader.DotLoader
+        android:id="@+id/text_dot_loader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:color_array="@array/dot_colors"
+        android:layout_gravity="center_horizontal|center_vertical"
+        app:dot_radius="10dp"
+        app:number_of_dots="3" />
 
     <!-- Empty view is only visible when the list has no items. -->
     <TextView
@@ -113,9 +120,6 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp">
         </ListView>
-
-
-
 
 
 </LinearLayout>

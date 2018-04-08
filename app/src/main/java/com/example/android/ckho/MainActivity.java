@@ -12,12 +12,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bhargavms.dotloader.DotLoader;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EventAdapter mSecondAdapter;
     private String uid,uname;
     SharedPrefApp sharedPref;
+    DotLoader dotLoader;
 
     public static final String LOG_TAG = MainActivity.class.getName();
     private static final int EVENT_LOADER_ID = 1;
@@ -62,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Remove title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
 
@@ -78,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         upcomingEventsListView = (ListView)findViewById(R.id.upcoming_list);
         pastEventsListView = (ListView)findViewById(R.id.past_list);
         mEmptyStateTextView = (TextView)findViewById(R.id.empty_view);
+        dotLoader = findViewById(R.id.text_dot_loader);
 
         upcomingEventsListView.setEmptyView(mEmptyStateTextView);
 
@@ -142,6 +148,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // because this activity implements the LoaderCallbacks interface).
             loaderManager.initLoader(EVENT_LOADER_ID, null, this);
         }else{
+
+
+            dotLoader.setVisibility(View.GONE);
+
             // Update empty state with no connection error message
             mEmptyStateTextView.setText("NO INTERNET CONNECTION");
         }
@@ -156,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onLoadFinished(Loader<List<List<Event>>> loader, List<List<Event>> event) {
+        dotLoader.setVisibility(View.GONE);
+
         // Set empty state text to display "No Events found."
         mEmptyStateTextView.setText("NO EVENTS");
 
